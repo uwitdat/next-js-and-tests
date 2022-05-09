@@ -1,0 +1,70 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "Mark morris",
+      "email": "mark@email.com",
+      "website": "www.site.com",
+      "phone": "416 493 4353"
+    },
+    {
+      "id": 2,
+      "name": "Larry willis",
+      "email": "willois@email.com",
+      "website": "www.mylarrrysite.com",
+      "phone": "416 443 4353"
+    },
+    {
+      "id": 3,
+      "name": "Sam Sarah",
+      "email": "samm@email.com",
+      "website": "www.sams-site.com",
+      "phone": "416 493 4353"
+    },
+    {
+      "id": 4
+    },
+    {
+      "id": "9017b90f-ef16-48e3-895b-e131f9ced389",
+      "email": "benshekhtman@hotmail.com",
+      "name": "Ben Shekhtman",
+      "phone": "9053700017",
+      "website": "sdaf"
+    },
+    {
+      "id": "e4ad1c5d-6171-493a-b88f-5ba20c3d3403",
+      "email": "benshekhtman@hotmail.com",
+      "name": "Ben Shekhtman",
+      "phone": "9053700017",
+      "website": "sdaf"
+    },
+    {
+      "id": "b2cd8992-4bf7-4073-bc0f-fea2cb1e3e7a",
+      "email": "benshekhtman@hotmail.com",
+      "name": "Ben",
+      "phone": "4168455302",
+      "website": "dsadad"
+    },
+    {
+      "id": "d3f8c3d2-d1be-4f1f-a9bb-34360172bb8a",
+      "email": "asd@email.com",
+      "name": "2ad",
+      "phone": "asdasd",
+      "website": "asdasda"
+    }
+  ]
+}
