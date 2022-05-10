@@ -5,6 +5,7 @@ import newUserFormStyles from './new-user-form-styles.module.css';
 import { Button } from '@mui/material';
 import * as Yup from 'yup';
 import axios from 'axios';
+import { handleAddUser } from './utils';
 
 const AddUserForm = ({ users, setUsers }) => {
 
@@ -30,18 +31,12 @@ const AddUserForm = ({ users, setUsers }) => {
       .required("Phone is required"),
   });
 
-  const handleAddUser = async (values, resetForm) => {
-    let newUser = values;
-    const newId = v4();
-    newUser.id = newId;
+  const handleSubmit = async (values, resetForm) => {
 
-    const res = await axios.post('http://localhost:4000/users', newUser);
-    if (res.status === 201) {
-      setUsers([...users, newUser]);
-
+    const { data, success } = await handleAddUser(values);
+    if (success) {
+      setUsers([...users, data]);
       resetForm();
-    } else {
-      console.log('an error has occured')
     }
   }
 
@@ -50,7 +45,7 @@ const AddUserForm = ({ users, setUsers }) => {
       <h2>Add New User</h2>
       <Formik
         initialValues={initialValues}
-        onSubmit={(values, { resetForm }) => handleAddUser(values, resetForm)}
+        onSubmit={(values, { resetForm }) => handleSubmit(values, resetForm)}
         validationSchema={NewUserSchema}
       >
         {({ isSubmitting, values, handleChange, errors, touched }) => (
