@@ -1,10 +1,8 @@
 import React from 'react'
 import { Formik, Form, Field } from 'formik';
-import { v4 } from 'uuid';
 import newUserFormStyles from './new-user-form-styles.module.css';
 import { Button } from '@mui/material';
 import * as Yup from 'yup';
-import axios from 'axios';
 import { handleAddUser } from './utils';
 
 const AddUserForm = ({ users, setUsers }) => {
@@ -17,26 +15,32 @@ const AddUserForm = ({ users, setUsers }) => {
     website: ''
   }
 
+  const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+
   const NewUserSchema = Yup.object().shape({
+
     name: Yup.string()
-      .required("Name is required."),
+      .required("Name is required.")
+      .max(20, "Maximum characters allowed for name is 20."),
     website: Yup.string()
       .min(2, "Minimum character is 2")
-      .max(50, "Maximum character is 50.")
-      .required("Website is required"),
+      .max(20, "Maximum characters allowed for website is 20."),
     email: Yup.string()
       .email("Please enter valid email")
       .required("Email is required"),
     phone: Yup.string()
-      .required("Phone is required"),
+      .matches(phoneRegExp, 'Phone number is not valid')
   });
 
   const handleSubmit = async (values, resetForm) => {
-
-    const { data, success } = await handleAddUser(values);
-    if (success) {
-      setUsers([...users, data]);
-      resetForm();
+    try {
+      const { success, data } = await handleAddUser(values);
+      if (success) {
+        setUsers([...users, data]);
+        resetForm();
+      }
+    } catch (err) {
+      console.log(err)
     }
   }
 
@@ -48,12 +52,11 @@ const AddUserForm = ({ users, setUsers }) => {
         onSubmit={(values, { resetForm }) => handleSubmit(values, resetForm)}
         validationSchema={NewUserSchema}
       >
-        {({ isSubmitting, values, handleChange, errors, touched }) => (
-          <Form className={newUserFormStyles.form}>
+        {({ values, handleChange, errors, touched, isValid }) => (
+          <Form className={newUserFormStyles.form} data-testid='add-user-form'>
             <Field
               style={inputStyles}
               onChange={handleChange}
-              required
               placeholder="Email"
               name='email'
               value={values.email}
@@ -66,7 +69,6 @@ const AddUserForm = ({ users, setUsers }) => {
             <Field
               style={inputStyles}
               onChange={handleChange}
-              required
               placeholder="Name"
               name='name'
               value={values.name}
@@ -79,20 +81,18 @@ const AddUserForm = ({ users, setUsers }) => {
             <Field
               style={inputStyles}
               onChange={handleChange}
-              required
               placeholder="Phone"
               name='phone'
               value={values.phone}
-              className={errors.phone && touched.phone ? `${newUserFormStyles.errorOutline} ${newUserFormStyles.input}` : newUserFormStyles.input}
+              className={errors.phone ? `${newUserFormStyles.errorOutline} ${newUserFormStyles.input}` : newUserFormStyles.input}
             />
-            {errors.phone && touched.phone && (
+            {errors.phone && (
               <p className={newUserFormStyles.errorText}>{errors.phone}</p>
             )}
 
             <Field
               style={inputStyles}
               onChange={handleChange}
-              required
               placeholder="Website"
               name='website'
               value={values.website}
@@ -102,7 +102,7 @@ const AddUserForm = ({ users, setUsers }) => {
               <p className={newUserFormStyles.errorText}>{errors.website}</p>
             )}
 
-            <Button type="submit" variant="contained" disabled={isSubmitting}> Submit</Button>
+            <Button disabled={values.email === '' || values.name === '' || !isValid} type="submit" variant="contained"> Submit</Button>
           </Form>
         )}
       </Formik>
