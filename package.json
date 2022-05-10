@@ -22,6 +22,7 @@
     "next": "12.1.6",
     "react": "18.1.0",
     "react-dom": "18.1.0",
+    "react-test-renderer": "^18.1.0",
     "uuid": "^8.3.2",
     "yup": "^0.32.11"
   },
@@ -30,11 +31,11 @@
     "@babel/preset-env": "^7.17.10",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
+    "@testing-library/user-event": "^14.1.1",
     "babel-jest": "^28.1.0",
     "eslint": "8.15.0",
     "eslint-config-next": "12.1.6",
     "jest": "^28.1.0",
-    "jest-environment-jsdom": "^28.1.0",
-    "@testing-library/user-event": "^14.1.1"
+    "jest-environment-jsdom": "^28.1.0"
   }
 }

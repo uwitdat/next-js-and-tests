@@ -30,6 +30,7 @@ const UserData = ({ data }) => {
       {users.map((user) => (
         <Card sx={{ maxWidth: 345, width: '70%', margin: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }} key={user.id}>
           <Image
+            data-testid={`user-img-${user.id}`}
             width={100}
             height={100}
             src={'https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png'} />

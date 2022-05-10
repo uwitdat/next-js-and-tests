@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent, screen, waitFor, cleanup, act } from "@testing-library/react";
-import '@testing-library/jest-dom'
+import '@testing-library/jest-dom';
 import AddUserForm from '../AddUserForm';
 import * as API from '../utils';
 
