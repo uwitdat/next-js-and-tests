@@ -4,8 +4,13 @@ import newUserFormStyles from './new-user-form-styles.module.css';
 import { Button } from '@mui/material';
 import * as Yup from 'yup';
 import { handleAddUser } from './utils';
+import { usersState } from '../../recoil/atom';
+import { useRecoilState } from 'recoil';
 
-const AddUserForm = ({ users, setUsers }) => {
+const AddUserForm = () => {
+  const [usersData, setUsersData] = useRecoilState(usersState);
+
+  console.log(usersData)
 
   const initialValues = {
     id: '',
@@ -36,7 +41,7 @@ const AddUserForm = ({ users, setUsers }) => {
     try {
       const { success, data } = await handleAddUser(values);
       if (success) {
-        setUsers([...users, data]);
+        setUsersData([...usersData, data]);
         resetForm();
       }
     } catch (err) {
