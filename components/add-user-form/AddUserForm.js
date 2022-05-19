@@ -7,11 +7,8 @@ import { handleAddUser } from './utils';
 import { usersState } from '../../recoil/atom';
 import { useRecoilState } from 'recoil';
 
-const AddUserForm = () => {
-  const [usersData, setUsersData] = useRecoilState(usersState);
-
-  console.log(usersData)
-
+const AddUserForm = ({ users, setUsers }) => {
+  // const [usersData, setUsersData] = useRecoilState(usersState);
   const initialValues = {
     id: '',
     email: '',
@@ -37,15 +34,17 @@ const AddUserForm = () => {
       .matches(phoneRegExp, 'Phone number is not valid')
   });
 
-  const handleSubmit = async (values, resetForm) => {
+  const handleSubmit = async (values = {}, resetForm) => {
     try {
       const { success, data } = await handleAddUser(values);
       if (success) {
-        setUsersData([...usersData, data]);
+        setUsers([...users, data]);
         resetForm();
       }
     } catch (err) {
-      console.log(err)
+      return {
+        success: false,
+      }
     }
   }
 

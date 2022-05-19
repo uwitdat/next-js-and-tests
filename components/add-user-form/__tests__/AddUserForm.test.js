@@ -4,6 +4,9 @@ import '@testing-library/jest-dom';
 import AddUserForm from '../AddUserForm';
 import * as API from '../utils';
 
+const axios = require('axios');
+jest.mock('axios');
+
 
 afterEach(() => {
   cleanup();
@@ -75,7 +78,12 @@ test('Expect api function to run when form is valid and submit button is clicked
     fireEvent.click(submitBtn);
   });
 
-  waitFor(() => expect(API.handleAddUser).toHaveBeenCalledTimes(1));
+  const values = {
+    email: 'email@email.com',
+    name: 'some user'
+  }
+
+  waitFor(() => expect(API.handleAddUser(values)).toHaveBeenCalledTimes(1));
 
 })
 

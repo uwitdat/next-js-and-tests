@@ -26,7 +26,7 @@ const users = [
 ];
 
 test('<UserData/> and its props render without crashing', () => {
-  const { getByTestId, getByText } = render(<UserData data={users} />);
+  const { getByTestId, getByText } = render(<UserData users={users} />);
 
   users.forEach((user) => {
     const imageComponent = getByTestId(`user-img-${user.id}`);

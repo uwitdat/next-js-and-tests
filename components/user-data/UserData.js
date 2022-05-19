@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router';
 import AddUserForm from '../add-user-form/AddUserForm';
 import Card from '@mui/material/Card';
@@ -14,13 +14,14 @@ import { useRecoilState } from 'recoil';
 
 const UserData = ({ users }) => {
   const router = useRouter();
-  const [usersData, setUsersData] = useRecoilState(usersState);
+  // const [usersData, setUsersData] = useRecoilState(usersState);
+  const [usersData, setUsersData] = useState(users);
 
-  useEffect(() => {
-    if (users) {
-      setUsersData(users);
-    }
-  }, [users])
+  // useEffect(() => {
+  //   if (users) {
+  //     setUsersData(users);
+  //   }
+  // }, [users])
 
   const handleGoToProfile = (user) => {
     router.push(
@@ -32,16 +33,16 @@ const UserData = ({ users }) => {
     )
   }
 
-  if (!usersData) {
-    return <p>loading...</p>
-  }
+  // if (!usersData) {
+  //   return <p>loading...</p>
+  // }
 
   return (
     <section className={userStyles.container}>
       <h1>Users:</h1>
-      {usersData.map((user) => (
+      {users && usersData.map((user) => (
         <Card sx={{ maxWidth: 345, width: '70%', margin: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }} key={user.id}>
-          <Image
+          <img
             data-testid={`user-img-${user.id}`}
             width={100}
             height={100}
@@ -59,7 +60,7 @@ const UserData = ({ users }) => {
           </CardActions>
         </Card>
       ))}
-      <AddUserForm />
+      <AddUserForm users={usersData} setUsers={setUsersData} />
     </section>
   )
 }

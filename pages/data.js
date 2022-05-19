@@ -1,8 +1,6 @@
 import axios from 'axios';
 import React from 'react';
 import UserData from '../components/user-data/UserData';
-import { usersState } from '../recoil/atom';
-import { useRecoilState } from 'recoil';
 
 export const getStaticProps = async () => {
   const res = await axios.get('http://localhost:4000/users');

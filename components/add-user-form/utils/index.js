@@ -2,6 +2,13 @@ import { v4 } from 'uuid';
 import axios from 'axios';
 
 export const handleAddUser = async (values) => {
+  if (!values) {
+    return {
+      success: false,
+      data: {}
+    };
+  }
+
   let newUser = values;
   const newId = v4();
   newUser.id = newId;
@@ -13,6 +20,9 @@ export const handleAddUser = async (values) => {
       data: res.data
     }
   } else {
-    console.log('an error has occured')
+    return ({
+      success: false,
+      errorMessage: 'error has occured'
+    })
   }
 }
