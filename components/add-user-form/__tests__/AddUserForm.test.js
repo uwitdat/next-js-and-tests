@@ -3,9 +3,7 @@ import { render, fireEvent, screen, waitFor, cleanup, act } from "@testing-libra
 import '@testing-library/jest-dom';
 import AddUserForm from '../AddUserForm';
 import * as API from '../utils';
-
-const axios = require('axios');
-jest.mock('axios');
+import { RecoilRoot } from 'recoil';
 
 
 afterEach(() => {
@@ -16,14 +14,22 @@ jest.mock('../utils');
 API.handleAddUser = jest.fn();
 
 test('<AddUserForm/> should render in the DOM', () => {
-  render(<AddUserForm />);
+  render(
+    <RecoilRoot>
+      <AddUserForm />
+    </RecoilRoot>
+  );
   const form = screen.getByTestId('add-user-form');
   expect(form).toBeInTheDocument();
 })
 
 
 test('Submit button should be disabled while name and email fields are empty', async () => {
-  const { getByPlaceholderText, getByRole } = render(<AddUserForm />);
+  const { getByPlaceholderText, getByRole } = render(
+    <RecoilRoot>
+      <AddUserForm />
+    </RecoilRoot>
+  );;
 
   const inputEmail = getByPlaceholderText('Email');
   const inputName = getByPlaceholderText('Name');
@@ -48,7 +54,11 @@ test('Submit button should be disabled while name and email fields are empty', a
 test('E mail error message should appear if attempted submit with invalid email', async () => {
   const invalidEmail = 'somestring';
 
-  const { getByPlaceholderText, getByRole, findAllByText } = render(<AddUserForm />);
+  const { getByPlaceholderText, getByRole, findAllByText } = render(
+    <RecoilRoot>
+      <AddUserForm />
+    </RecoilRoot>
+  );;
 
   const inputEmail = getByPlaceholderText('Email');
   const inputName = getByPlaceholderText('Name');
@@ -66,7 +76,11 @@ test('E mail error message should appear if attempted submit with invalid email'
 })
 
 test('Expect api function to run when form is valid and submit button is clicked', async () => {
-  const { getByPlaceholderText, getByRole } = render(<AddUserForm />);
+  const { getByPlaceholderText, getByRole } = render(
+    <RecoilRoot>
+      <AddUserForm />
+    </RecoilRoot>
+  );;
 
   const inputEmail = getByPlaceholderText('Email');
   const inputName = getByPlaceholderText('Name');
@@ -90,7 +104,11 @@ test('Expect api function to run when form is valid and submit button is clicked
 test('Except invalid phone error and submit btn to be disabled when entering invalid phone', async () => {
   const invalidPhone = '4267453g';
 
-  const { getByPlaceholderText, getByRole, findAllByText } = render(<AddUserForm />);
+  const { getByPlaceholderText, getByRole, findAllByText } = render(
+    <RecoilRoot>
+      <AddUserForm />
+    </RecoilRoot>
+  );;
 
   const inputPhone = getByPlaceholderText('Phone');
   const submitBtn = getByRole('button', { name: 'Submit' });
@@ -108,7 +126,11 @@ test('Expect error msg and disabled btn when user exceeds character length for n
   const invalidName = 'lorem ipsum some test to ccheck for longer name value';
   const invalidWebsite = 'lorem ipsum some test to ccheck for longer name value';
 
-  const { getByPlaceholderText, getByRole, findAllByText } = render(<AddUserForm />);
+  const { getByPlaceholderText, getByRole, findAllByText } = render(
+    <RecoilRoot>
+      <AddUserForm />
+    </RecoilRoot>
+  );;
 
   const inputName = getByPlaceholderText('Name');
   const inputWebsite = getByPlaceholderText('Website');

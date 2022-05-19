@@ -2,7 +2,8 @@ import React from 'react';
 import { getStaticProps } from '../../pages/data';
 import Data from '../../pages/data';
 import { render } from "@testing-library/react";
-import '@testing-library/jest-dom'
+import '@testing-library/jest-dom';
+import { RecoilRoot } from 'recoil';
 
 const axios = require('axios');
 jest.mock('axios');
@@ -42,7 +43,12 @@ describe('Tests Data component to receive valid data and pass the value as props
 
   it('<Data/> renders and passes correct props from API call above to its child component', () => {
 
-    const { getByText } = render(<Data data={DUMMY_USERS} />);
+    const { getByText } = render(
+      <RecoilRoot>
+        <Data data={DUMMY_USERS} />
+      </RecoilRoot>
+
+    );
     expect(getByText(DUMMY_USERS[0].name)).toBeInTheDocument();
     expect(getByText(DUMMY_USERS[0].email)).toBeInTheDocument();
 

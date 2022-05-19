@@ -3,6 +3,7 @@ import { render, cleanup, } from "@testing-library/react";
 import '@testing-library/jest-dom';
 import UserData from '../UserData';
 import renderer from 'react-test-renderer';
+import { RecoilRoot } from 'recoil';
 
 afterEach(() => {
   cleanup();
@@ -26,7 +27,11 @@ const users = [
 ];
 
 test('<UserData/> and its props render without crashing', () => {
-  const { getByTestId, getByText } = render(<UserData users={users} />);
+  const { getByTestId, getByText } = render(
+    <RecoilRoot>
+      <UserData users={users} />
+    </RecoilRoot>
+  );
 
   users.forEach((user) => {
     const imageComponent = getByTestId(`user-img-${user.id}`);
@@ -41,6 +46,10 @@ test('<UserData/> and its props render without crashing', () => {
 
 
 test('<UserData/> matches snapshot', () => {
-  const tree = renderer.create(<UserData data={users} />).toJSON();
+  const tree = renderer.create(
+    <RecoilRoot>
+      <UserData data={users} />
+    </RecoilRoot>
+  ).toJSON();
   expect(tree).toMatchSnapshot();
 })

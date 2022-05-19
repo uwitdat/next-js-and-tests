@@ -2,12 +2,6 @@ import { v4 } from 'uuid';
 import axios from 'axios';
 
 export const handleAddUser = async (values) => {
-  if (!values) {
-    return {
-      success: false,
-      data: {}
-    };
-  }
 
   let newUser = values;
   const newId = v4();

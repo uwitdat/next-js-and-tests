@@ -1,5 +1,5 @@
 import React from 'react'
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import newUserFormStyles from './new-user-form-styles.module.css';
 import { Button } from '@mui/material';
 import * as Yup from 'yup';
@@ -7,8 +7,9 @@ import { handleAddUser } from './utils';
 import { usersState } from '../../recoil/atom';
 import { useRecoilState } from 'recoil';
 
-const AddUserForm = ({ users, setUsers }) => {
-  // const [usersData, setUsersData] = useRecoilState(usersState);
+const AddUserForm = () => {
+  const [usersData, setUsersData] = useRecoilState(usersState);
+
   const initialValues = {
     id: '',
     email: '',
@@ -34,18 +35,19 @@ const AddUserForm = ({ users, setUsers }) => {
       .matches(phoneRegExp, 'Phone number is not valid')
   });
 
-  const handleSubmit = async (values = {}, resetForm) => {
+  const handleSubmit = async (values, resetForm) => {
     try {
       const { success, data } = await handleAddUser(values);
+
       if (success) {
-        setUsers([...users, data]);
+        setUsersData([...usersData, data]);
         resetForm();
+
       }
     } catch (err) {
-      return {
-        success: false,
-      }
+      return err
     }
+
   }
 
   return (
