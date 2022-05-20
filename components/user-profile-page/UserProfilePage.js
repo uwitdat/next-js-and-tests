@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import userProfileStyles from './user-profile-styles.module.css';
+import Link from 'next/link';
 
 
 
@@ -33,9 +34,14 @@ const UserProfilePage = () => {
             <Typography variant="body2" color="text.secondary">
               {user.phone}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {user.website}
+
+
+            <Typography style={linkStyles} variant="body2" color="text.secondary">
+              <Link href={`/${user.website}`}>
+                {user.website}
+              </Link>
             </Typography>
+
           </CardContent>
         </Card>
       </div>
@@ -44,3 +50,10 @@ const UserProfilePage = () => {
 }
 
 export default UserProfilePage
+
+
+const linkStyles = {
+  color: 'blue',
+  textDecoration: 'underline',
+  cursor: 'pointer'
+}
