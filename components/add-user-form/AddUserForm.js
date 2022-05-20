@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import newUserFormStyles from './new-user-form-styles.module.css';
 import { Button } from '@mui/material';
 import * as Yup from 'yup';
-import { handleAddUser } from './utils';
+import { handleAddUser } from '../../utils';
 import { usersState } from '../../recoil/atom';
 import { useRecoilState } from 'recoil';
 

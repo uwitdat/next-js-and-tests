@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, fireEvent, screen, waitFor, cleanup, act } from "@testing-library/react";
 import '@testing-library/jest-dom';
-import AddUserForm from '../AddUserForm';
-import * as API from '../utils';
+import AddUserForm from '../../components/add-user-form/AddUserForm';
+import * as API from '../../utils';
 import { RecoilRoot } from 'recoil';
 
 
@@ -10,7 +10,7 @@ afterEach(() => {
   cleanup();
 });
 
-jest.mock('../utils');
+jest.mock('../../utils');
 API.handleAddUser = jest.fn();
 
 test('<AddUserForm/> should render in the DOM', () => {
