@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, cleanup, } from "@testing-library/react";
 import '@testing-library/jest-dom';
-import UserData from '../UserData';
+import UserData from '../../components/user-data/UserData';
 import renderer from 'react-test-renderer';
 import { RecoilRoot } from 'recoil';
 
