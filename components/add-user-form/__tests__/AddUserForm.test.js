@@ -15,9 +15,7 @@ API.handleAddUser = jest.fn();
 
 test('<AddUserForm/> should render in the DOM', () => {
   render(
-    <RecoilRoot>
-      <AddUserForm />
-    </RecoilRoot>
+    <AddUserForm />
   );
   const form = screen.getByTestId('add-user-form');
   expect(form).toBeInTheDocument();
